@@ -21,4 +21,4 @@ RUN npx prisma generate
 EXPOSE 3000
 
 # Perintah yang akan dijalankan saat container dijalankan
-CMD ["npm", "start"]
+CMD npm run db:push && npm run start
