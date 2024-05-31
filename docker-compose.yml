@@ -1,64 +1,14 @@
-# version: '3.8'
-
-# services:
-#   service-resep:
-#     build:
-#       context: ./service-resep
-#     container_name: service-resep
-#     ports:
-#       - "3000:3000"
-#     environment:
-#       - DATABASE_URL=mysql://root@mysql:3307/db_resep 
-#       - PORT=3000
-#     depends_on:
-#       - mysql
-#     restart: always
-
-#   mysql:
-#     image: mysql:8.0
-#     container_name: mysql
-#     environment:
-#       MYSQL_ROOT_PASSWORD: ""
-#       MYSQL_DATABASE: mydb
-#       MYSQL_USER: "root"
-#       MYSQL_PASSWORD: ""
-#       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-#     ports:
-#       - "3307:3306" 
-#     volumes:
-#       - mysql-data:/var/lib/mysql
-#     restart: always
-
-# volumes:
-#   mysql-data:
-
 version: '3.8'
 
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: db_resep
-      MYSQL_USER: root
-      MYSQL_PASSWORD: rootpassword
-    ports:
-      - "3306:3306" 
-    volumes:
-      - mysql-data:/var/lib/mysql
-    restart: always
-
   service-resep:
-    image: service-resep
     build:
       context: ./service-resep
     container_name: service-resep
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=172.19.0.2://root@172.19.0.2:3307/db_resep 
-      # - DATABASE_URL=mysql://root@mysql:3307/db_resep
+      - DATABASE_URL=mysql://root@mysql:3306/db_resep
       - PORT=3000
     depends_on:
       - mysql
@@ -71,10 +21,10 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_DATABASE: db_resep
     ports:
-      - "3307:3306" 
+      - "3306:3306" 
     volumes:
       - mysql-data:/var/lib/mysql
-    restart: always
+    restart: always   
 
 volumes:
   mysql-data:
